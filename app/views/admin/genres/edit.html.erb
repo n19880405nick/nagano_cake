@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row p-10">
+    <div class="col-4 my-5">
+      <div class="alert alert-secondary", role="alert">
+        <span>ジャンル編集</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= form_with model: @genre, url: admin_genre_path, method: :patch do |f| %>
+<div class="form-group row mx-5">
+    <label class="col-1 col-form-label ml-3">ジャンル名</label>
+    <div class="col-2 mr-5">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="col-2">
+      <%= f.submit "変更を保存", class: "btn btn-success" %>
+    </div>
+  </div>
+<% end %>
