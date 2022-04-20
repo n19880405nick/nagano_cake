@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+
   # 管理者用
   # URL /admin/sign_in ...
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
@@ -18,5 +19,10 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :genres, only: [:index, :create, :edit, :update]
     resources :items, except: [:destroy]
+    resources :customers, only: [:index, :show, :edit, :update]
+  end
+  # 顧客用コントローラ
+  scope module: :public do
+    root to: "homes#top"
   end
 end

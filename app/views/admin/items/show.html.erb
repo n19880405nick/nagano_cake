@@ -1,2 +1,56 @@
-<h1>Admin::Items#show</h1>
-<p>Find me in app/views/admin/items/show.html.erb</p>
+<div class="container">
+    <div class="row p-10">
+        <div class="col-4 my-5">
+            <div class="alert alert-secondary", role="alert">
+                <span>商品詳細</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row p-5">
+        <div class="col-3">
+            <%= image_tag @item.item_image, size: "200x200" %>
+        </div>
+        <div class="col-7 ml-3">
+            <table class="table table-borderless">
+                <tbody>
+                    <tr>
+                        <td style="width: 30%">商品名</td>
+                        <td style="width: 70%"><%= @item.name %></td>
+                    </tr>
+                    <tr>
+                        <td>商品説明</td>
+                        <td><%= @item.introduction %></td>
+                    </tr>
+                    <tr>
+                        <td>ジャンル</td>
+                        <td><%= @item.genre.name %></td>
+                    </tr>
+                    <tr>
+                        <td>税込価格<br>(税抜価格)</td>
+                        <td>
+                            <%= @item.price*1.1 %>(<%= @item.price %>)円
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>販売ステータス</td>
+                        <td>
+                            <% if @item.is_active == true %>
+                                <p class="text-success"><strong>販売中</strong></p>
+                            <% else %>
+                                <p class="text-muted"><strong>販売停止中</strong></p>
+                            <% end %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-2">
+            <%= link_to edit_admin_item_path(@item.id) do %>
+                <p class="btn btn-success"><strong>編集する</strong></p>
+            <% end %>
+        </div>
+    </div>
+</div>
