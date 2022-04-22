@@ -20,6 +20,10 @@ Rails.application.routes.draw do
     resources :genres, only: [:index, :create, :edit, :update]
     resources :items, except: [:destroy]
     resources :customers, only: [:index, :show, :edit, :update]
+    get '' => 'homes#top', as: 'top'
+    resources :orders, only: [:show, :update] do
+      resources :order_details, only: [:update]
+    end
   end
   # 顧客用コントローラ
   scope module: :public do
