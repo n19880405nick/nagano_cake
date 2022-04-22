@@ -11,19 +11,58 @@
   </head>
 
   <body>
-    <header>
-      <% if customer_signed_in? %>
-      <li>
-        <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "新規登録", new_customer_registration_path %>
-      </li>
-      <li>
-        <%= link_to "ログイン", new_customer_session_path %>
-      </li>
-    <% end %>
+    <header class="border-bottom border-dark">
+      <nav class="navbar">
+        <div class="container">
+          <a class="nav-brand" href="/"><%= image_tag('cooltext409284279304300.png') %></a>
+          <form class="form-inline ml-auto">
+            <% if customer_signed_in? %>
+              <p>ようこそ、<%= current_customer.last_name %>さん！</p>
+              
+                <button class="btn btn-outline-secondary mx-2">マイページ</button>
+              
+              
+                <button class="btn btn-outline-secondary mx-2">商品一覧</button>
+              
+              
+                <button class="btn btn-outline-secondary mx-2">カート</button>
+              
+              <%= link_to destroy_customer_session_path, method: :delete do %>
+                <button class="btn btn-outline-secondary mx-2">ログアウト</button>
+              <% end %>
+            <% elsif admin_signed_in? %>
+              <%= link_to admin_items_path do %>
+                <button class="btn btn-outline-secondary mx-2">商品一覧</button>
+              <% end %>
+              <%= link_to admin_customers_path do %>
+                <button class="btn btn-outline-secondary mx-2">会員一覧</button>
+              <% end %>
+              <%= link_to admin_top_path do %>
+                <button class="btn btn-outline-secondary mx-2">注文履歴一覧</button>
+              <% end %>
+              <%= link_to admin_genres_path do %>
+                <button class="btn btn-outline-secondary mx-2">ジャンル一覧</button>
+              <% end %>
+              <%= link_to destroy_admin_session_path, method: :delete do %>
+                <button class="btn btn-outline-secondary mx-2">ログアウト</button>
+              <% end %>
+            <% else %>
+            
+                <button class="btn btn-outline-secondary mx-2">About</button>
+              
+              
+                <button class="btn btn-outline-secondary mx-2">商品一覧</button>
+            
+              <%= link_to new_customer_registration_path do %>
+                <button class="btn btn-outline-secondary mx-2">新規登録</button>
+              <% end %>
+              <%= link_to new_customer_session_path do %>
+                <button class="btn btn-outline-secondary mx-2">ログイン</button>
+              <% end %>
+            <% end %>
+          </form>
+        </div>
+      </nav>
     </header>
     
     <main>
