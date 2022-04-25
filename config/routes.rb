@@ -28,5 +28,6 @@ Rails.application.routes.draw do
   # 顧客用コントローラ
   scope module: :public do
     root to: "homes#top"
+    get 'about' => 'homes#about', as: 'about'
   end
 end

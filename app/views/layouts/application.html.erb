@@ -7,11 +7,13 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
   </head>
 
   <body>
-    <header class="border-bottom border-dark">
+    <header class="border-bottom border-dark my-1">
       <nav class="navbar">
         <div class="container">
           <a class="nav-brand" href="/"><%= image_tag('cooltext409284279304300.png') %></a>
@@ -47,9 +49,9 @@
                 <button class="btn btn-outline-secondary mx-2">ログアウト</button>
               <% end %>
             <% else %>
-            
+              <%= link_to about_path do %>
                 <button class="btn btn-outline-secondary mx-2">About</button>
-              
+              <% end %>
               
                 <button class="btn btn-outline-secondary mx-2">商品一覧</button>
             
@@ -68,5 +70,7 @@
     <main>
     <%= yield %>
     </main>
+    
+    <footer class="border-top border-dark my-1", style="height :100px"></footer>
   </body>
 </html>
