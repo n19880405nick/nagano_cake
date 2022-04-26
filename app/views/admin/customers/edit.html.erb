@@ -9,16 +9,16 @@
     
     <div class="row px-4">
         <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <td scope="col", style="width: 20%">会員ID</td>
-                    <td scope="col", style="width: 30%">1</td>
-                    <td scope="col", style="width: 30%"></td>
-                    <td scope="col", style="width: 20%"></td>
-                </tr>
-            </thead>
-            <tbody class="form-group">
-                <%= form_with model: @customer, url: admin_customer_path(@customer.id), method: :patch do |f| %>
+            <%= form_with model: @customer, url: admin_customer_path(@customer.id), method: :patch do |f| %>
+                <thead>
+                    <tr>
+                        <td scope="col", style="width: 20%">会員ID</td>
+                        <td scope="col", style="width: 30%"><%= @customer.id %></td>
+                        <td scope="col", style="width: 30%"></td>
+                        <td scope="col", style="width: 20%"></td>
+                    </tr>
+                </thead>
+                <tbody class="form-group">
                     <tr>
                         <td>氏名</td>
                         <td><%= f.text_field :last_name, class: "form-control" %></td>
@@ -70,8 +70,8 @@
                         <td></td>
                         <td></td>
                     </tr>
-                <% end %>
-            </tbody>
+                </tbody>
+            <% end %>
         </table>
     </div>
 </div>

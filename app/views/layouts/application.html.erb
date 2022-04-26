@@ -20,9 +20,9 @@
           <form class="form-inline ml-auto">
             <% if customer_signed_in? %>
               <p>ようこそ、<%= current_customer.last_name %>さん！</p>
-              
+              <%= link_to mypage_path do %>
                 <button class="btn btn-outline-secondary mx-2">マイページ</button>
-              
+              <% end %>
               
                 <button class="btn btn-outline-secondary mx-2">商品一覧</button>
               

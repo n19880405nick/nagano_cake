@@ -1,19 +1,6 @@
 Rails.application.routes.draw do
   
 
-  # 管理者用
-  # URL /admin/sign_in ...
-  devise_for :admin, skip: [:registrations, :passwords], controllers: {
-    sessions: "admin/sessions"
-  }
-  
-  # 顧客用
-  # URL /customers/sign_in ...
-  devise_for :customers, skip: [:passwords], controllers: {
-    registrations: "public/registrations",
-    sessions: "public/sessions"
-  }
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
   # 管理者用コントローラ
   namespace :admin do
@@ -29,5 +16,25 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get 'about' => 'homes#about', as: 'about'
+    get 'customers/my_page' => 'customers#show', as: 'mypage'
+    resource :customers, only: [:edit, :update]
+    get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
+    patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw'
+    
   end
+  
+  # 管理者用
+  # URL /admin/sign_in ...
+  devise_for :admin, skip: [:registrations, :passwords], controllers: {
+    sessions: "admin/sessions"
+  }
+  
+  # 顧客用
+  # URL /customers/sign_in ...
+  devise_for :customers, skip: [:passwords], controllers: {
+    registrations: "public/registrations",
+    sessions: "public/sessions"
+  }
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  
 end

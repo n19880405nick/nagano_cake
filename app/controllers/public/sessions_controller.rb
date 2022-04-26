@@ -36,14 +36,12 @@ class Public::SessionsController < Devise::SessionsController
     return if !@customer
     ## 【処理内容２】取得したアカウントのパスワードと入力されたパスワードが一致しているかを判別
     if @customer.valid_password?(params[:customer][:password])
-      ## 【処理内容３】処理２がtrueかつ退会カラムの真偽にて、行先指定
-      if true && params[:is_active] == true
-        ## 退会していなかったらログイン画面へ
-        redirect_to customer_session_path
-      elsif true && params[:is_active] == !true
+      ## 【処理内容３】処理２がtrueかつ退会カラムの真偽にて、場合分け
+      if true && @customer.is_active == !true
         ## 退会していたらサインアップ画面へ
         redirect_to new_customer_registration_path
       end
+      ## 退会していない場合はアクション続行
     end
   end
 end
