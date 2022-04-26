@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
 
-  
   # 管理者用コントローラ
   namespace :admin do
     resources :genres, only: [:index, :create, :edit, :update]
@@ -20,7 +19,7 @@ Rails.application.routes.draw do
     resource :customers, only: [:edit, :update]
     get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw'
-    
+    resources :addresses, except: [:new, :show]
   end
   
   # 管理者用
