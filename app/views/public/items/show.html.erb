@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row py-5" style="height: 600px">
+    <div class="col-2">
+      <div class="border border-dark" style="height: 300px">
+        <p class="w-auto border-bottom border-dark text-center"><strong>ジャンル検索</strong></p>
+        <ul style="list-style: none">
+          <% @genres.each do |genre| %>
+            <%= link_to items_path(genre.id) do %>
+              <li class="my-1"><%= genre.name %></li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>      
+    </div>
+    <div class="col-10">
+      <div class="d-flex">
+        <%= image_tag @item.item_image, size: "300x300" %>
+        <div class="ml-3">
+          <h2><strong><%= @item.name %></strong></h2>
+          <h3><%= @item.introduction %></h3>
+          <div class="d-flex align-items-end my-3" style="height: 100px">
+            <h2 class="inline"><strong>￥<%= (@item.price*1.1).floor %></strong></h2>
+            <span>(税込)</span>
+          </div>
+          <div class="form-group">
+            <% if customer_signed_in? %>
+              <%= form_with model: @cart_item, url: cart_items_path do |f| %>
+                <%= f.hidden_field :item_id, :value => @item.id %>
+                <ul class="list-inline mt-5">
+                  <li class="list-inline-item">
+                    <%= f.select :amount, [['1',1],['2',2],['3',3],['4',4],['5',5]], { include_blank: '個数選択'}, {class: "form-control"} %>
+                  </li>
+                  <li class="list-inline-item ml-4">
+                    <%= f.submit "カートに入れる", class: "btn btn-success" %>
+                  </li>
+                </ul>
+              <% end %> 
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

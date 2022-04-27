@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   
 
+  namespace :public do
+    get 'orders/new'
+    get 'orders/index'
+    get 'orders/show'
+  end
   # 管理者用コントローラ
   namespace :admin do
     resources :genres, only: [:index, :create, :edit, :update]
@@ -20,6 +25,12 @@ Rails.application.routes.draw do
     get 'customers/unsubscribe' => 'customers#unsubscribe', as: 'unsubscribe'
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw'
     resources :addresses, except: [:new, :show]
+    resources :items, only: [:index, :show]
+    delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all'
+    resources :cart_items, only: [:index, :create, :update, :destroy]
+    resources :orders, only: [:new, :create, :index, :show]
+    post 'orders/confirm' => 'orders#confirm', as: 'confirm'
+    get 'orders/thanks' => 'orders#thanks', as: 'thanks'
   end
   
   # 管理者用
