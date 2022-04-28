@@ -26,9 +26,9 @@
               <%= link_to items_path do %>
                 <button class="btn btn-outline-secondary mx-2">商品一覧</button>
               <% end %>
-              
+              <%= link_to cart_items_path do %>
                 <button class="btn btn-outline-secondary mx-2">カート</button>
-              
+              <% end %>
               <%= link_to destroy_customer_session_path, method: :delete do %>
                 <button class="btn btn-outline-secondary mx-2">ログアウト</button>
               <% end %>
