@@ -18,17 +18,18 @@ class Public::OrdersController < ApplicationController
       @order.address = @address.address
       @order.name = @address.name
     end
-    @cart_items = CartItem.all
+    @cart_items = current_customer.cart_items.all
     @cart_items.each do |cart_item|
       @order.total_payment += cart_item.subtotal
     end
+    @order.total_payment += @order.shipping_cost
     @order.order_status = 0
     @order.save
     @cart_items.each do |cart_item|
       @order_details = @order.order_details.new
       @order_details.item_id = cart_item.item.id
       @order_details.order_id = @order.id
-      @order_details.price = cart_item.item.price
+      @order_details.price = cart_item.item.with_tax_price
       @order_details.amount = cart_item.amount
       @order_details.making_status = 0
       @order_details.save
@@ -38,9 +39,12 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
+    @orders = current_customer.orders.all
   end
 
   def show
+    @order = Order.find(params[:id])
+    @total = 0
   end
   
   def confirm

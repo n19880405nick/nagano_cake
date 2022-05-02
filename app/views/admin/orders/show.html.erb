@@ -7,43 +7,53 @@
 		</div>
 	</div>
 	
-	<div class="row">
+	<div class="row form-group">
 		<table class="table table-borderless">
 			<tbody>
 				<tr>
-					<th scope="col", style="width: 20%">購入者</th>
-					<td scope="col", style="width: 80%"><u>
-						<%= @order.customer.last_name %> <%= @order.customer.first_name %>
-					</u></td>
+					<th style="width: 15%">購入者</th>
+					<td style="width: 15%">
+						<%= link_to admin_customer_path(@order.customer.id) do %>
+							<p class="text-dark"><u><%= @order.customer.last_name+'　'+@order.customer.first_name %></u></p>
+						<% end %>
+					</td>
+					<td style="width: 15%"></td>
+					<td style="width: 55%"></td>
 				</tr>
 				<tr>
 					<th>注文日</th>
 					<td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+					<td></td>
+					<td></td>
 				</tr>
 				<tr>
 					<th>配送先</th>
-					<td>
-						〒<%= @order.postal_code %> <%= @order.address %> <%= @order.name %>
+					<td colspan="3">
+						〒<%= @order.postal_code+'  '+@order.address %><br>
+						<%= @order.name %>
 					</td>
 				</tr>
 				<%= form_with model: @order, url: admin_order_path(@order.id), method: :patch do |f| %>
 					<tr>
 						<th>支払方法</th>
-						<td><%= f.label :payment_method %></td>
+						<td><%= @order.payment_method_i18n %></td>
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<th>注文ステータス</th>
-						<td>
-							<%= f.select :order_status, Order.order_statuses_i18n.invert %>
-							<%= f.submit :order_status, class: "btn btn-success" %>
+						<td class="d-flex">
+							<%= f.select :order_status, Order.order_statuses_i18n.invert, {include_blank: Order.order_statuses_i18n.key(0)}, {class: "form-control"} %>
 						</td>
+						<td><%= f.submit "更新", class: "btn btn-success" %></td>
+						<td></td>
 					</tr>
 					<% end %>
 			</tbody>
 		</table>
 	</div>
-	<div class="row">
-		<div class="col-8">
+	<div class="row mb-3">
+		<div class="col-9">
 			<table class="table table-borderless border-bottom">
 				<thead class="thead-light">
 					<tr>
@@ -55,15 +65,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<%= @orders.each do |order| %>
+					<% @order.order_details.each do |detail| %>
 						<tr>
-							<td><%= order.item.name %></td>
-							<td><%= order.order_detail.price %></td>
-							<td><%= order.order_detail.amount %></td>
-							<td><%= order.order_detail.price*order.order_detail.amount %></td>
-							<%= form_with model: @order_detail, url: admin_order_order_detail(@order_detail.id), method: :patch do |f| %>
-								<td>
-									<%= f.collection_select :order_detail_id, OrderDetail.all, :id, :making_status, {include_blank: "着手不可"}, {class: "form-control"} %>
+							<td><%= detail.item.name %></td>
+							<td><%= detail.price %></td>
+							<td><%= detail.amount %></td>
+							<td><%= detail.price*detail.amount %></td>
+							<%= form_with model: detail, url: admin_order_order_detail_path(detail.id), method: :patch do |f| %>
+								<td class="d-flex">
+									<%= f.select :making_status, OrderDetail.making_statuses_i18n.invert, {include_blank: OrderDetail.making_statuses_i18n.key(0)}, {class: "form-control"} %>
+									<%= f.submit "更新", class: "btn btn-success ml-2" %>
 								</td>
 							<% end %>
 						</tr>
@@ -71,20 +82,23 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="col-4 align-self-end">
+		<div class="col-3 align-self-end">
+			<% @order.order_details.each do |details| %>
+				<% @total += details.price*details.amount %>
+			<% end %>
 			<table class="table table-borderless">
 				<tbody>
 					<tr>
 						<th scope="col">商品合計</th>
-						<td scope="col">a</td>
+						<td scope="col"><%= @total %>円</td>
 					</tr>
 					<tr>
 						<th>送料</th>
-						<td><%= @order.shipping_cost %></td>
+						<td><%= @order.shipping_cost %>円</td>
 					</tr>
 					<tr>
 						<th>請求金額合計</th>
-						<th><%= @order.total_payment %></th>
+						<th><%= @order.total_payment %>円</th>
 					</tr>
 				</tbody>
 			</table>
