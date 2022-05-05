@@ -1,42 +1,43 @@
-<div class="container">
-    <div class="row px-2">
-        <div class="col-4 my-5">
-            <div class="alert alert-secondary", role="alert">
-                <span>会員一覧</span>
-            </div>
-        </div>
+<div class="container" style="height: 700px">
+  <div class="row p-3">
+    <div class="col-2 my-3">
+      <h5 class="text-center" style="background-color: #6c757d36">会員一覧</h5>
     </div>
-    
-    <div class="row px-5">
-        <table class="table table-borderless">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col", style="width: 10%">会員ID</th>
-                    <th scope="col", style="width: 30%"><u>氏名</u></th>
-                    <th scope="col", style="width: 30%">メールアドレス</th>
-                    <th scope="col", style="width: 30%">ステータス</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @customers.each do |customer| %>
-                    <tr>
-                        <td scope="row"><%= customer.id %></td>
-                        <td>
-                            <%= link_to admin_customer_path(customer.id), class: "text-dark" do %>
-                                <u><%= customer.last_name+customer.first_name %></u>
-                            <% end %>
-                        </td>
-                        <td><%= customer.email %></td>
-                        <td>
-                            <% if customer.is_active == true %>
-                                <p class="text-success"><strong>有効</strong></p>
-                            <% else %>
-                                <p class="text-muted"><strong>退会</strong></p>
-                            <% end %>
-                        </td>
-                    </tr>
-                <% end %>
-            </tbody>
-        </table>
+  </div>
+	
+	<div class="row px-5">
+		<table class="table">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col", style="width: 10%">会員ID</th>
+					<th scope="col", style="width: 30%"><u>氏名</u></th>
+					<th scope="col", style="width: 30%">メールアドレス</th>
+					<th scope="col", style="width: 30%">ステータス</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @customers.each do |customer| %>
+					<tr>
+						<td scope="row"><%= customer.id %></td>
+						<td>
+							<%= link_to admin_customer_path(customer.id), class: "text-dark" do %>
+								<u><%= customer.last_name+customer.first_name %></u>
+							<% end %>
+						</td>
+						<td><%= customer.email %></td>
+						<td>
+							<% if customer.is_active == true %>
+								<p class="text-success"><strong>有効</strong></p>
+							<% else %>
+								<p class="text-muted"><strong>退会</strong></p>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<div class="mx-auto">
+      <%= paginate @customers, theme: 'twitter-bootstrap-4' %>
     </div>
+	</div>
 </div>

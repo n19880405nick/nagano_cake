@@ -1,15 +1,13 @@
-<div class="container">
-  <div class="row px-2">
-    <div class="col-4 my-5">
-      <div class="alert alert-secondary", role="alert">
-        <span>新規会員登録</span>
-      </div>
+<div class="container" style="height: 700px">
+  <div class="row p-3">
+    <div class="col-2 my-2">
+      <h5 class="text-center" style="background-color: #6c757d36">新規会員登録</h5>
     </div>
     <%= render "public/shared/error_messages", resource: resource %>
   </div>
     
   <div class="row px-4">
-    <table class="table table-borderless">
+    <table class="table table-borderless table-sm">
       <tbody class="form-group p-2">
         <%= form_with model: @customer, url: customer_registration_path do |f| %>
           <tr>
@@ -84,10 +82,8 @@
     </table>
   </div>
   <div class="row flex-column px-2">
-    <div class="col-4 my-3">
-      <div class="alert alert-secondary", role="alert">
-        <span>既に登録済みの方</span>
-      </div>
+    <div class="col-3 my-3">
+      <h5 class="text-center" style="background-color: #6c757d36">既に登録済みの方</h5>
     </div>
     <div class="col-4 offset-md-2">
       <p><u><%= link_to "こちら", new_customer_session_path %></u> からログインしてください。</p>

@@ -1,11 +1,9 @@
-<div class="container my-2">
-	<div class="row px-2">
-		<div class="col-3 my-3">
-			<div class="alert alert-secondary", role="alert">
-				<span>注文履歴詳細</span>
-			</div>
-		</div>
-	</div>
+<div class="container" style="height: 700px">
+  <div class="row p-3">
+    <div class="col-2 my-3">
+      <h5 class="text-center" style="background-color: #6c757d36">注文履歴詳細</h5>
+    </div>
+  </div>
 	<div class="row">
 	  <div class="col-8">
 	    <p><strong>注文情報</strong></p>
@@ -43,15 +41,15 @@
 	      <tbody>
 	        <tr>
 	          <td style="width: 60%" class="table-secondary">商品合計</td>
-	          <td style="width: 40%"><%= @total %></td>
+	          <td style="width: 40%"><%= @total.to_s(:delimited) %></td>
 	        </tr>
 	        <tr>
 	          <td class="table-secondary">配送料</td>
-	          <td><%= @order.shipping_cost %></td>
+	          <td><%= @order.shipping_cost.to_s(:delimited) %></td>
 	        </tr>
 	        <tr>
 	          <td class="table-secondary"><strong>ご請求額</strong></td>
-	          <td><%= @order.total_payment %></td>
+	          <td><%= @order.total_payment.to_s(:delimited) %></td>
 	        </tr>
 	      </tbody>
 	    </table>
@@ -68,11 +66,12 @@
 	        <td class="table-secondary" style="width: 10%">小計</td>
 	      </tr>
 	      <% @order.order_details.each do |detail| %>
+	        <% subtotal = detail.price*detail.amount %>
 	        <tr>
 	          <td><%= detail.item.name %></td>
-	          <td><%= detail.price %></td>
+	          <td><%= detail.price.to_s(:delimited) %></td>
 	          <td><%= detail.amount %></td>
-	          <td><%= detail.price*detail.amount %></td>
+	          <td><%= subtotal.to_s(:delimited) %></td>
 	        </tr>
 	      <% end  %>
 	    </thead>

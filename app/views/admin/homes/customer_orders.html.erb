@@ -1,7 +1,9 @@
 <div class="container" style="height: 700px">
   <div class="row p-3">
-    <div class="col-2 my-3">
-      <h5 class="text-center" style="background-color: #6c757d36">注文履歴一覧</h5>
+    <div class="col-3 my-3">
+      <h5 class="text-center" style="background-color: #6c757d36">
+        <%= @customer.last_name+@customer.first_name %>さんの注文履歴
+        </h5>
     </div>
   </div>
 	
@@ -9,9 +11,9 @@
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
+				  <th scope="col", style="width: 10%"></th>
 					<th scope="col", style="width: 30%">購入日時</th>
-					<th scope="col", style="width: 20%">購入者</th>
-					<th scope="col", style="width: 20%">注文個数</th>
+					<th scope="col", style="width: 30%">注文個数</th>
 					<th scope="col", style="width: 30%">注文ステータス</th>
 				</tr>
 			</thead>
@@ -22,14 +24,10 @@
 					<% order.order_details.each do |detail| %>
 						<% total_amount += detail.amount %>
 					<% end %>
+					  <td></td>
 						<td><u>
 							<%= link_to admin_order_path(order.id), class: "text-dark" do %>
 								<%= order.created_at.strftime("%Y/%m/%d %H:%M:%S") %>
-							<% end %>
-						</u></td>
-						<td><u>
-							<%= link_to admin_customer_orders_path(order.customer.id), class: "text-dark" do %>
-								<%= order.name %>
 							<% end %>
 						</u></td>
 						<td><%= total_amount %></td>

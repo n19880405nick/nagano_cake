@@ -1,17 +1,12 @@
 Rails.application.routes.draw do
   
-
-  namespace :public do
-    get 'orders/new'
-    get 'orders/index'
-    get 'orders/show'
-  end
   # 管理者用コントローラ
   namespace :admin do
     resources :genres, only: [:index, :create, :edit, :update]
     resources :items, except: [:destroy]
     resources :customers, only: [:index, :show, :edit, :update]
     get '' => 'homes#top', as: 'top'
+    get 'customer_orders/:id' => 'homes#customer_orders', as: 'customer_orders'
     resources :orders, only: [:show, :update] do
       resources :order_details, only: [:update]
     end
@@ -26,6 +21,7 @@ Rails.application.routes.draw do
     patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw'
     resources :addresses, except: [:new, :show]
     resources :items, only: [:index, :show]
+    get 'items/genre_item/:id' => 'items#genre_item', as: 'genre_item'
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all'
     resources :cart_items, only: [:index, :create, :update, :destroy]
     post 'orders/confirm' => 'orders#confirm', as: 'confirm'

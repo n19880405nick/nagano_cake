@@ -1,17 +1,13 @@
-<div class="container">
-  <div class="row px-2">
-    <div class="col-2 my-5">
-      <div class="alert alert-secondary", role="alert">
-        <span>ログイン</span>
-      </div>
+<div class="container" style="height: 700px">
+  <div class="row p-3">
+    <div class="col-2 my-3">
+      <h5 class="text-center" style="background-color: #6c757d36">ログイン</h5>
     </div>
   </div>
   
   <div class="row flex-column px-3">
-    <div class="col-4 offset-md-1">
-      <div class="alert alert-secondary", role="alert">
-        <label>会員の方はこちらからログイン</label>
-      </div>
+    <div class="col-4 offset-md-1 my-3">
+      <h5 class="text-center" style="background-color: #6c757d36">会員の方はこちらからログイン</h5>
     </div>
     <div class="col-10 mx-auto">
       <%= form_with model: @customer, url: customer_session_path do |f| %>
@@ -35,10 +31,8 @@
         </table>
       <% end %>
     </div>
-    <div class="col-4 offset-md-1">
-      <div class="alert alert-secondary", role="alert">
-        <label>会員登録がお済みでない方</label>
-      </div>
+    <div class="col-4 offset-md-1 my-3">
+      <h5 class="text-center" style="background-color: #6c757d36">会員登録がお済みでない方</h5>
     </div>
     <div class="col-4 offset-md-3 my-2">
       <p><u><%= link_to "こちら", new_customer_registration_path %></u> から新規登録してください。</p>

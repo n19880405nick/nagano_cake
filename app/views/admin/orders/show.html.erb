@@ -1,11 +1,9 @@
-<div class="container">
-	<div class="row px-2">
-		<div class="col-4 my-5">
-			<div class="alert alert-secondary", role="alert">
-				<span>注文履歴詳細</span>
-			</div>
-		</div>
-	</div>
+<div class="container" style="height: 700px">
+  <div class="row p-3">
+    <div class="col-2 my-3">
+      <h5 class="text-center" style="background-color: #6c757d36">注文履歴詳細</h5>
+    </div>
+  </div>
 	
 	<div class="row form-group">
 		<table class="table table-borderless">
@@ -13,8 +11,8 @@
 				<tr>
 					<th style="width: 15%">購入者</th>
 					<td style="width: 15%">
-						<%= link_to admin_customer_path(@order.customer.id) do %>
-							<p class="text-dark"><u><%= @order.customer.last_name+'　'+@order.customer.first_name %></u></p>
+						<%= link_to admin_customer_path(@order.customer.id), class: "text-dark" do %>
+							<u><%= @order.customer.last_name+'　'+@order.customer.first_name %></u>
 						<% end %>
 					</td>
 					<td style="width: 15%"></td>
@@ -41,7 +39,7 @@
 						<td></td>
 					</tr>
 					<tr>
-						<th>注文ステータス</th>
+						<th class="align-middle">注文ステータス</th>
 						<td class="d-flex">
 							<%= f.select :order_status, Order.order_statuses_i18n.invert, {include_blank: Order.order_statuses_i18n.key(0)}, {class: "form-control"} %>
 						</td>
@@ -67,10 +65,10 @@
 				<tbody>
 					<% @order.order_details.each do |detail| %>
 						<tr>
-							<td><%= detail.item.name %></td>
-							<td><%= detail.price %></td>
-							<td><%= detail.amount %></td>
-							<td><%= detail.price*detail.amount %></td>
+							<td class="align-middle"><%= detail.item.name %></td>
+							<td class="align-middle"><%= detail.price %></td>
+							<td class="align-middle"><%= detail.amount %></td>
+							<td class="align-middle"><%= detail.price*detail.amount %></td>
 							<%= form_with model: detail, url: admin_order_order_detail_path(detail.id), method: :patch do |f| %>
 								<td class="d-flex">
 									<%= f.select :making_status, OrderDetail.making_statuses_i18n.invert, {include_blank: OrderDetail.making_statuses_i18n.key(0)}, {class: "form-control"} %>

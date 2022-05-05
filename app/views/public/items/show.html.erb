@@ -1,15 +1,16 @@
-<div class="container">
-  <div class="row py-5" style="height: 600px">
+<div class="container" style="height: 700px">
+  <div class="row py-5">
     <div class="col-2">
       <div class="border border-dark" style="height: 300px">
         <p class="w-auto border-bottom border-dark text-center"><strong>ジャンル検索</strong></p>
         <ul style="list-style: none">
           <% @genres.each do |genre| %>
-            <%= link_to items_path(genre.id) do %>
-              <li class="my-1"><%= genre.name %></li>
+            <%= link_to genre_item_path(genre.id) do %>
+              <li class="my-3 text-dark"><%= genre.name %></li>
             <% end %>
           <% end %>
         </ul>
+      </div>
       </div>      
     </div>
     <div class="col-10">
@@ -19,8 +20,8 @@
           <h2><strong><%= @item.name %></strong></h2>
           <h3><%= @item.introduction %></h3>
           <div class="d-flex align-items-end my-3" style="height: 100px">
-            <h2 class="inline"><strong>￥<%= (@item.price*1.1).floor %></strong></h2>
-            <span>(税込)</span>
+            <h2 class="inline"><strong>￥<%= (@item.price*1.1).floor.to_s(:delimited) %></strong></h2>
+            <span class="ml-2 mb-2">(税込)</span>
           </div>
           <div class="form-group">
             <% if customer_signed_in? %>
