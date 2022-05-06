@@ -7,4 +7,8 @@ class Item < ApplicationRecord
     def with_tax_price
         (price*1.1).floor
     end
+    
+    def self.search_for(keyword)
+        Item.where(['name LIKE ? or introduction LIKE ?','%'+keyword+'%','%'+keyword+'%'])
+    end
 end

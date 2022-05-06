@@ -6,4 +6,8 @@ class Public::HomesController < ApplicationController
     
     def about
     end
+    
+    def search
+        @records = Item.search_for(params[:keyword])
+    end
 end

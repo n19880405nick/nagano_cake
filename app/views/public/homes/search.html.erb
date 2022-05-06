@@ -1,0 +1,40 @@
+<div class="container" style="height: 700px">
+  <div class="row p-3">
+    <div class="col-2 my-3">
+      <h5 class="text-center" style="background-color: #6c757d36">検索結果</h5>
+    </div>
+  </div>
+  
+  <div class="row my-3">
+    <% if @records.count != 0 %>
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th style="width: 30%">商品名</th>
+            <th style="width: 50%">商品説明</th>
+            <th style="width: 20%">金額</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @records.each do |record| %>
+            <tr>
+              <td><u>
+                <%= link_to item_path(record.id), class: "text-dark" do %>
+                  <%= record.name %>
+                <% end %>
+              </u></td>
+              <td><%= record.introduction %></td>
+              <td><%= record.price.to_s(:delimited) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="col-12">
+        <h1 class="text-center align-middle">
+          一致する商品はありません。
+        </h1>
+      </div>
+    <% end %>
+  </div>
+</div>

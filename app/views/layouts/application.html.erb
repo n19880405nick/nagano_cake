@@ -63,6 +63,22 @@
               <% end %>
             <% end %>
           </form>
+          <div class="col-3 offset-md-9">
+            <table class="table table-borderless form-group form-inline">
+              <%= form_with url: search_path, local: true do |f| %>
+                <tbody>
+                  <tr>
+                    <td class="p-0" style="width: 85%"><%= f.search_field :keyword, class: "form-control", placeholder: "Search" %></td>
+                    <td class="p-0" style="width: 15%">
+                      <%= button_tag type: "submit", class: "form-control" do %>
+                        <i class="fa fa-search"></i>
+                      <% end %>                      
+                    </td>
+                  </tr>
+                </tbody>
+              <% end %>
+            </table>
+          </div>
         </div>
       </nav>
     </header>
