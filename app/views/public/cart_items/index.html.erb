@@ -64,6 +64,8 @@
     </div>
   </div>
   <div class="row justify-content-center mb-5">
-    <%= link_to "情報入力へ進む", new_order_path, class: "btn btn-success" %>
+    <% if @total != 0 %>
+      <%= link_to "情報入力へ進む", new_order_path, class: "btn btn-success" %>
+    <% end %>
   </div>
 </div>

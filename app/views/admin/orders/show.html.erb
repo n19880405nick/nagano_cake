@@ -41,7 +41,7 @@
 					<tr>
 						<th class="align-middle">注文ステータス</th>
 						<td class="d-flex">
-							<%= f.select :order_status, Order.order_statuses_i18n.invert, {include_blank: Order.order_statuses_i18n.key(0)}, {class: "form-control"} %>
+							<%= f.select :order_status, Order.order_statuses_i18n.invert, {}, {class: "form-control"} %>
 						</td>
 						<td><%= f.submit "更新", class: "btn btn-success" %></td>
 						<td></td>
@@ -63,15 +63,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<% @order.order_details.each do |detail| %>
+					<% @order.order_details.all.each do |detail| %>
 						<tr>
 							<td class="align-middle"><%= detail.item.name %></td>
 							<td class="align-middle"><%= detail.price %></td>
 							<td class="align-middle"><%= detail.amount %></td>
 							<td class="align-middle"><%= detail.price*detail.amount %></td>
-							<%= form_with model: detail, url: admin_order_order_detail_path(detail.id), method: :patch do |f| %>
+							<%= form_with model: @detail=OrderDetail.find(detail.id), url: admin_order_order_detail_path(@order.id), method: :patch do |f| %>
 								<td class="d-flex">
-									<%= f.select :making_status, OrderDetail.making_statuses_i18n.invert, {include_blank: OrderDetail.making_statuses_i18n.key(0)}, {class: "form-control"} %>
+									<%= f.select :making_status, OrderDetail.making_statuses_i18n.invert, {}, {class: "form-control"} %>
+									<%= f.hidden_field :id, :value => detail.id %>
 									<%= f.submit "更新", class: "btn btn-success ml-2" %>
 								</td>
 							<% end %>

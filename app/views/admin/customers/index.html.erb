@@ -6,7 +6,7 @@
   </div>
 	
 	<div class="row px-5">
-		<table class="table">
+		<table class="table table-sm">
 			<thead class="thead-light">
 				<tr>
 					<th scope="col", style="width: 10%">会員ID</th>
@@ -18,18 +18,18 @@
 			<tbody>
 				<% @customers.each do |customer| %>
 					<tr>
-						<td scope="row"><%= customer.id %></td>
-						<td>
+						<td class="align-middle" scope="row"><%= customer.id %></td>
+						<td class="align-middle">
 							<%= link_to admin_customer_path(customer.id), class: "text-dark" do %>
 								<u><%= customer.last_name+customer.first_name %></u>
 							<% end %>
 						</td>
-						<td><%= customer.email %></td>
+						<td class="align-middle"><%= customer.email %></td>
 						<td>
 							<% if customer.is_active == true %>
-								<p class="text-success"><strong>有効</strong></p>
+								<p class="text-success my-2"><strong>有効</strong></p>
 							<% else %>
-								<p class="text-muted"><strong>退会</strong></p>
+								<p class="text-muted my-2"><strong>退会</strong></p>
 							<% end %>
 						</td>
 					</tr>
